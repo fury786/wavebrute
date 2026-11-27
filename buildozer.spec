@@ -19,7 +19,7 @@ source.include_exts = py,png,jpg,kv,atlas,svg,ttf,otf
 source.exclude_patterns = tests/**,docs/**,.github/**,CHANGELOG.md,CONTRIBUTING.md,README.md,SECURITY.md
 
 # (str) Application version
-version = 0.1.0
+version = 0.7.0
 
 # (str) Application main file (the one that starts the Kivy app)
 main = main.py
@@ -38,6 +38,7 @@ android.permissions = INTERNET,ACCESS_NETWORK_STATE,CHANGE_NETWORK_STATE,ACCESS_
 
 # (int) Target Android API level
 android.api = 33
+android.archs = arm64-v8a
 
 # (int) Minimum Android API level
 android.minapi = 24
