@@ -61,10 +61,14 @@ android.minapi = 24
 android.entrypoint = org.kivy.android.PythonActivity
 
 # (list) Android additional jars
-android.add_jars =
+# NOTE: left commented out (not set to empty) - buildozer has a bug where
+# a present-but-empty value here resolves to the project's source
+# directory itself and tries to copy it as a .jar, crashing the final
+# apk packaging step.
+#android.add_jars =
 
 # (list) Android additional aars
-android.add_aars =
+#android.add_aars =
 
 # (str) Android NDK version
 android.ndk = 25b
