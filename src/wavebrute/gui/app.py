@@ -132,9 +132,36 @@ class WaveBruteApp(App):
         header.add_widget(self.toggle_btn)
 
         root.add_widget(header)
+
+        # Persistent navigation makes all four application sections reachable
+        # on compact Android screens without relying on keyboard shortcuts.
+        nav = BoxLayout(
+            orientation="horizontal",
+            size_hint_y=None,
+            height=dp(72),
+            padding=(dp(6), dp(2)),
+            spacing=dp(5),
+        )
+        for screen_name, caption in (
+            ("scan", "SCAN"),
+            ("attack", "AUDIT"),
+            ("capture", "CAPTURE"),
+            ("report", "REPORT"),
+        ):
+            nav_button = BrutalistButton(
+                text=caption,
+                app=self,
+                font_size=dp(13),
+                size_hint_x=0.25,
+                on_press=lambda _button, target=screen_name: setattr(self.sm, "current", target),
+            )
+            nav.add_widget(nav_button)
+
+        root.add_widget(nav)
         root.add_widget(self.sm)
 
         self.header = header
+        self.nav = nav
         return root
 
 
