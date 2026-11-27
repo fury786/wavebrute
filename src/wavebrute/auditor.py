@@ -27,8 +27,6 @@ from collections.abc import Callable
 from datetime import datetime
 from typing import Any
 
-from scapy.all import rdpcap  # graceful fallback if unavailable
-
 from .scanner import scan_wifi
 from .wordlist import WordlistGenerator
 from .ethics import ConsentManager
