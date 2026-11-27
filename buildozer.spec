@@ -75,7 +75,17 @@ android.sdk = 33
 # (bool) If True, enables the SDL2 bootstrap (recommended for Kivy)
 android.bootstrap = sdl2
 
+# (str) python-for-android branch/tag to use.
+# Pinned to an older release because current python-for-android (master)
+# targets Python 3.14, and Kivy 2.1.0's setup.py still imports the stdlib
+# 'cgi' module, which was removed in Python 3.13. This release's python3
+# recipe builds Python 3.11.5 instead, which still has 'cgi'.
+p4a.branch = v2024.01.21
+
 # (str) Python version used by the app
+# NOTE: this key is no longer read by current buildozer/python-for-android
+# (the actual target Python version comes from the pinned p4a release's
+# python3 recipe, set via p4a.branch above). Left here for documentation.
 python.version = 3.10
 
 # (str) List of python modules to include
