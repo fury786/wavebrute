@@ -291,6 +291,14 @@ class ReportScreen(BaseScreen):
         try:
             path = self.auditor.build_report(title="WaveBrute Ethical Audit")
             self.result_label.text = f"Report saved successfully:\n{path}"
+        except RuntimeError:
+            # PDF export unavailable on this build (e.g. reportlab isn't
+            # bundled in this APK) - fall back to an HTML report instead.
+            try:
+                path = self.auditor.build_report(title="WaveBrute Ethical Audit", format="html")
+                self.result_label.text = f"PDF unavailable on this build - saved HTML report instead:\n{path}"
+            except Exception as exc:  # pylint: disable=broad-except
+                self.result_label.text = f"Report error: {exc}"
         except Exception as exc:  # pylint: disable=broad-except
             self.result_label.text = f"Report error: {exc}"
 

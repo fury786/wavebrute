@@ -11,10 +11,20 @@ from datetime import datetime
 from typing import Any
 
 import jinja2
-from reportlab.lib import colors
-from reportlab.lib.pagesizes import A4
-from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
-from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
+
+try:
+    from reportlab.lib import colors
+    from reportlab.lib.pagesizes import A4
+    from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
+    from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
+
+    REPORTLAB_AVAILABLE = True
+except ImportError:
+    # reportlab is unavailable on this build (e.g. the Android APK, where the
+    # upstream python-for-android recipe currently can't fetch its source).
+    # PDF export is disabled in that case, but Markdown/HTML reports and the
+    # rest of the app keep working.
+    REPORTLAB_AVAILABLE = False
 
 
 class ReportBuilder:
@@ -34,6 +44,12 @@ class ReportBuilder:
 
     def to_pdf(self, title: str = "WaveBrute Ethical Audit Report", output_path: str | None = None) -> str:
         """Generate a PDF report with brutalist design."""
+        if not REPORTLAB_AVAILABLE:
+            raise RuntimeError(
+                "PDF report generation is unavailable in this build (reportlab is not "
+                "installed). Use format='md' or format='html' instead."
+            )
+
         if output_path is None:
             timestamp = datetime.now().strftime("%Y%m%d_%H%M")
             output_path = f"wavebrute_report_{timestamp}.pdf"

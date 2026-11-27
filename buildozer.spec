@@ -25,7 +25,7 @@ version = 0.1.0
 main = main.py
 
 # (list) Application requirements
-requirements = python3,kivy==2.1.0,scapy,reportlab,jinja2,click,setuptools
+requirements = python3,kivy==2.1.0,scapy,jinja2,click,setuptools
 
 # (str) Orientation of the application
 orientation = portrait,landscape
