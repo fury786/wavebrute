@@ -1,12 +1,15 @@
-"""Android APK entrypoint for WaveBrute.
+"""Android entry point for WaveBrute."""
 
-Defaults to dark theme on mobile for better battery life and high-contrast
-brutalist aesthetics while preserving all existing functionality.
-"""
+import os
+import sys
 
-from src.wavebrute.gui.app import WaveBruteApp
+# The repository uses a src/ package layout; expose it to the bundled runtime.
+_src = os.path.join(os.path.dirname(os.path.abspath(__file__)), "src")
+if _src not in sys.path:
+    sys.path.insert(0, _src)
+
+from wavebrute.gui.app import WaveBruteApp  # noqa: E402
+
 
 if __name__ == "__main__":
-    # Buildozer expects the app to be instantiated here.
-    # Dark theme is enabled by default on Android for optimal contrast.
     WaveBruteApp(simulation_mode=True, dark_theme=True).run()
